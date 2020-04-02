@@ -31,9 +31,11 @@ def scrape_moridb(url):
             num_fields = len(names)
             num_items = num_items + 1
             columns = ["Name"]
+            
             for i in range(num_fields):
                 columns.append(names[i].text.strip())
                 data.append(info[i].text.strip())
+            
             data = pd.DataFrame(data).T
             data.columns=columns
             results.append(data)
@@ -47,14 +49,17 @@ def scrape_moridb(url):
             else:
                 output = pd.concat([output,results[i]],join='outer',
                                    sort=False)
+            
         temp_output.append(output)
         
         # check if next page exists
         next_list = soup.findAll("li", {"class": "next"})
         len_next = len(next_list)
+        
         if len_next==2:
             next_list = next_list[1]
             link = next_list.find("a")
+            
             if link != None:
                 suffix = link.get('href')
                 url = source + suffix
@@ -66,6 +71,7 @@ def scrape_moridb(url):
     
     # consolidate the final output across page results
     len_output = len(temp_output)
+    
     for i in range(0,len_output):
         if i == 0:
             consolidated = temp_output[0]
@@ -73,6 +79,7 @@ def scrape_moridb(url):
             consolidated = pd.concat([consolidated, temp_output[i]], 
                                      join = 'outer',
                                      sort = False)
+            
     consolidated.to_csv("moridb_output.csv", index=False)
     return consolidated
 
@@ -82,4 +89,3 @@ tops = scrape_moridb(tops_db)
 
 shoes = 'http://moridb.com/items/shoes/'
 shoes = scrape_moridb(shoes)
-
