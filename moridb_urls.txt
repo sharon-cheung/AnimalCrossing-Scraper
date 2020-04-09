@@ -1,0 +1,2 @@
+http://moridb.com/items/tops/?limit=50&offset=0
+http://moridb.com/items/shoes/
