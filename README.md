@@ -8,3 +8,7 @@ Two textfiles, one for MoriDB URLs and one for Thonky URLs
 
 Outputs:
 csv files for the tables from each of the URLs provided
+
+Future Updates:
+Greater flexibility in displaying outputs
+Analysis of the data scraped
